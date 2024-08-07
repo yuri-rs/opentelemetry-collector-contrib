@@ -24,6 +24,7 @@ func TestFactory_CreateDefaultConfig(t *testing.T) {
 		},
 		CheckCollectorPipeline: defaultCheckCollectorPipelineSettings(),
 		Path:                   "/",
+		ShutdownDelayDuration:  0,
 	}, cfg)
 
 	assert.NoError(t, componenttest.CheckConfigStruct(cfg))

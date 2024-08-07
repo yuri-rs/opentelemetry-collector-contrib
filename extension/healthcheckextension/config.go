@@ -37,6 +37,10 @@ type Config struct {
 
 	// CheckCollectorPipeline contains the list of settings of collector pipeline health check
 	CheckCollectorPipeline checkCollectorPipelineSettings `mapstructure:"check_collector_pipeline"`
+
+	// ShutdownDelayDuration represents the sleep interval for setting NotReady status
+	// This is useful in k8s env to delay shutdown, allowing pod readiness to detect NotReady state and move traffic
+	ShutdownDelayDuration time.Duration `mapstructure:"shutdown_delay_duration"`
 }
 
 var _ component.Config = (*Config)(nil)

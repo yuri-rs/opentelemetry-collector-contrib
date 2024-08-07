@@ -6,6 +6,7 @@ package healthcheckextension
 import (
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -58,6 +59,16 @@ func TestLoadConfig(t *testing.T) {
 		{
 			id:          component.NewIDWithName(metadata.Type, "invalidpath"),
 			expectedErr: errInvalidPath,
+		},
+		{
+			id: component.NewIDWithName(metadata.Type, "shutdowndelay5s"),
+			expected: &Config{
+				ServerConfig:           confighttp.NewDefaultServerConfig(),
+				Path:                   "/",
+				ResponseBody:           nil,
+				CheckCollectorPipeline: defaultCheckCollectorPipelineSettings(),
+				ShutdownDelayDuration:  5 * time.Second,
+			},
 		},
 	}
 	for _, tt := range tests {

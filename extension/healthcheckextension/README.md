@@ -30,7 +30,8 @@ The following settings are required:
 
 - `endpoint` (default = localhost:13133): Address to publish the health check status. For full list of `ServerConfig` refer [here](https://github.com/open-telemetry/opentelemetry-collector/tree/main/config/confighttp). You can temporarily disable the `component.UseLocalHostAsDefaultHost` feature gate to change this to 0.0.0.0:13133. This feature gate will be removed in a future release.
 - `path` (default = "/"): Specifies the path to be configured for the health check server.
-- `response_body` (default = ""): Specifies a static body that overrides the default response returned by the health check service. 
+- `response_body` (default = ""): Specifies a static body that overrides the default response returned by the health check service.
+- `shutdown_delay_duration` (default = 0): Specifies a sleep interval for setting NotReady status. This is useful in k8s env to delay shutdown, allowing pod readiness to detect NotReady state and move traffic.
 
 Example:
 
@@ -44,6 +45,7 @@ extensions:
       cert_file: "/path/to/cert.crt"
       key_file: "/path/to/key.key"
     path: "/health/status"
+  shutdown_delay_duration: 2s
 ```
 
 The full list of settings exposed for this exporter is documented [here](./config.go)

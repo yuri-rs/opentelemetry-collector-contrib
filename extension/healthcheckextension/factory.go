@@ -33,6 +33,7 @@ func createDefaultConfig() component.Config {
 		},
 		CheckCollectorPipeline: defaultCheckCollectorPipelineSettings(),
 		Path:                   "/",
+		ShutdownDelayDuration:  0,
 	}
 }
 

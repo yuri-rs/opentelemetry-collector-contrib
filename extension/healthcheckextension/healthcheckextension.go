@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
@@ -91,6 +92,11 @@ func (hc *healthCheckExtension) Ready() error {
 
 func (hc *healthCheckExtension) NotReady() error {
 	hc.state.Set(healthcheck.Unavailable)
+
+	if hc.config.ShutdownDelayDuration > 0 {
+		time.Sleep(hc.config.ShutdownDelayDuration)
+	}
+
 	return nil
 }
 
